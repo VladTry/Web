@@ -1,0 +1,185 @@
+body {
+  width: 1100px;
+  margin: auto;
+  font: 16px arial;
+background-color: black;
+  /* Firefox */
+  background-image:
+     -moz-radial-gradient(circle, #FFFFFF 2px, rgba(248,255,128,.5) 4px, transparent 40px),
+     -moz-radial-gradient(circle, #FFFFFF 1px, rgba(255,186,170,.4) 3px, transparent 30px),
+     -moz-radial-gradient(ellipse, rgba(255,255,255,.9) 1px, rgba(251,255,186,.3) 2px, transparent 40px),
+     -moz-radial-gradient(ellipse, rgba(255,255,255,.4), rgba(253,255,219,.2) 1px, transparent 30px);
+  /* Webkit */
+  background-image:
+     -webkit-gradient(radial, 50% 50%, 2, 50% 50%, 40, from(white), color-stop(0.1, rgba(248,255,128,.5)), to(transparent)),
+     -webkit-gradient(radial, 50% 50%, 1, 50% 50%, 30, from(white), color-stop(0.1, rgba(255,186,170,.4)), to(transparent)),
+     -webkit-gradient(radial, 50% 50%, 1, 50% 50%, 40, from(rgba(255,255,255,.9)), color-stop(0.05, rgba(251,255,186,.3)), to(transparent)),
+     -webkit-gradient(radial, 50% 50%, 0, 50% 50%, 30, from(rgba(255,255,255,.4)), color-stop(0.03, rgba(253,255,219,.2)), to(transparent));
+  /* Background Attributes */
+  background-size: 550px 550px, 350px 350px, 250px 270px, 220px 200px;
+  background-position: 0 0, 30px 60px, 130px 270px, 70px 150px;
+  /* Animation */
+  animation-name: movement;
+  animation-duration: 5s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+@keyframes movement
+{
+  from {
+        background-position: 0 0, 30px 60px, 130px 270px, 70px 150px;
+  }
+  to {
+        background-position: -550px 0, -320px 60px, -120px 270px, -150px 150px;
+  }
+}
+@-moz-keyframes movement
+{
+  from {
+        background-position: 0 0, 30px 60px, 130px 270px, 70px 150px;
+  }
+  to {
+        background-position: -550px 0, -320px 60px, -120px 270px, -150px 150px;
+  }
+}
+@-webkit-keyframes movement
+{
+  from {
+        background-position: 0 0, 30px 60px, 130px 270px, 70px 150px;
+  }
+  to {
+        background-position: -550px 0, -320px 60px, -120px 270px, -150px 150px;
+  }
+}
+.headline{
+  width: 1100px;
+  display: block;
+  margin-top: 50px;
+  font: 40px arial;
+  text-align: center;
+  color: black;
+  background-color: lightpink;
+  animation-duration: 2s;
+  animation-name: slidein;
+}
+@keyframes slidein {
+  from {
+    background-color: black;
+    margin-left: 100%;
+    width: 300%;
+  }
+
+  to {
+    margin-left: 0%;
+    width: 100%;
+    background-color: lightpink
+  }
+}
+.pic1{
+  overflow:hidden;
+  animation-duration: 3s;
+  animation-name: slidepic;
+  text-align: center;
+}
+@keyframes slidepic {
+  from {
+
+    margin-top: 100%;
+    width: 300%;
+  }
+
+  to {
+    margin-top: 0%;
+    width: 100%;
+
+  }
+}
+.maintext{
+  width: 1000px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  text-align: left;
+  font: 20px arial;
+  color: pink;
+  }
+.header{
+  width: 1000px;
+  float: right;
+  height: auto;
+  line-height: 40px;
+  }
+.footer{
+  display: block;
+  background-color: white;
+  text-align: center;
+  margin-bottom: 10px;
+}
+ul {
+    display: block;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+ul.menu > li {
+    float: left;
+    position: relative;
+}
+ul.menu > li > a {
+    display: block;
+    padding: 10px;
+    width: 140px;
+    color: white;
+    background-color: black;
+    text-decoration: none;
+}
+ul.menu > li > a:hover {
+    background-color: pink;
+    color: black;
+    animation-duration: 0.5s;
+    animation-name: hover;
+    font-size: 20px;
+}
+ul.submenu {
+    display: none;
+    position: absolute;
+    width: 150px;
+    top: 50px;
+    background-color: white;
+    border: 1px solid black;
+}
+ul.submenu > li {
+    display: block;
+}
+ul.submenu > li > a {
+    display: block;
+    padding: 10px;
+    color: white;
+    background-color: black;
+    text-decoration: none;
+}
+ul.submenu > li > a:hover {
+  display: block;
+  padding: 10px;
+  color: black;
+  background-color: pink;
+  text-decoration: none;
+  animation-duration: 0.5s;
+  animation-name: hover;
+  font-size: 20px;
+}
+ul.menu > li:hover > ul.submenu {
+    display: block;
+}
+@keyframes hover
+{
+  from {
+    background-color: black;
+    color: white;
+    font-size: 16px;
+  }
+  to {
+    background-color: pink;
+    color: black;
+    font-size: 20px;
+  }
+}
