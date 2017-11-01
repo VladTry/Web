@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Bootstrap CSS -->
+    <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all">
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark sticky-top">
+        <a class="navbar-brand" href="#">A$AP</a>
+        <a class="navbar-brand" href="#">
+    <img src="images/icon.png" width="30" height="30" alt="">
+  </a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="main.html">Головна</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="news.html">Новини</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Студенти
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="#">Програма</a>
+          <a class="dropdown-item" href="#">Лабораторні</a>
+          <a class="dropdown-item" href="#">Літературна</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="coments.html">Відгуки</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="contact.html">Контакти</a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="admin.html">Админ <span class="sr-only">(current)</span></a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+<div class="wrapper row3">
+    <section class="hoc container clear">
+        <div class="center btmspace-50">
+            <br>
+            <h2 class="heading">Додати новину</h2>
+        </div>
+        <form>
+            <input type="text" id = "namearticle" placeholder="Назва" required>
+            <br>
+            <input type="text" id = "shortdescription" placeholder="Короткий опис" required>
+            <br>
+            <textarea id="longdescription" placeholder="Опис" required></textarea>
+            <br>
+            Завантажити картинку<br />
+            <input type="file">
+            <br>
+            <button type="submit" onclick="AddNews()">Додати новину</button>
+        </form>
+        <br>
+    </section>
+</div>
+<script src='js/jquery.min.js'></script>
+<script src='js/bootstrap.min.js'></script>
+<script src='js/magnific-popup.js'></script>
+<script>
+    function AddNews() {
+        if (($('#longdescription').val()==="") || ($('#shortdescription').val()==="") || ($('#namearticle').val()==="")) {
+            alert('Заповніть всі дані');
+            return false;
+        }
+        $('#longdescription').val('');
+        $('#shortdescription').val('');
+        $('#namearticle').val('');
+        alert('Новину успішно додано');
+    };
+</script>
+
+</body>
+</html>
