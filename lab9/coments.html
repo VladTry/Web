@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en" manifest="manifest.cache">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Bootstrap CSS -->
+    <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all">
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark sticky-top">
+        <a class="navbar-brand" href="#">A$AP</a>
+        <a class="navbar-brand" href="#">
+    <img src="images/icon.png" width="30" height="30" alt="">
+  </a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="main.html">Головна </span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="news.html">Новини</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Студенти
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="#">Програма</a>
+          <a class="dropdown-item" href="#">Лабораторні</a>
+          <a class="dropdown-item" href="#">Літературна</a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="coments.html">Відгуки<span class="sr-only">(current)</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="contact.html">Контакти</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="admin.html">Админ</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <div class="wrapper row3">
+    <section class="hoc container clear">
+        <div class="center btmspace-50">
+            <br>
+            <h2 class="heading">Відгуки</h2>
+        </div>
+
+        <div id="comments">
+        <ul id = "list">
+
+        </ul>
+        </div>
+
+        <form>
+            <div class="block clear">
+                <textarea class="long2" id="longdescription" required></textarea>
+                <br>
+                <input id ="btn1" type="button" name="submit" value="Додати відгук" onclick="AddReview()">
+            </div>
+        </form>
+        <br>
+      </div>
+    </section>
+
+    <script>
+    window.addEventListener('load', function () {
+
+    function updateOnlineStatus(event) {
+        if (isOnline()) {
+            ReadOflineReview();
+        }
+    }
+
+    window.addEventListener('online', updateOnlineStatus);
+    window.addEventListener('offline', updateOnlineStatus);
+});
+
+
+var i = 0;
+
+function isOnline() {
+    return window.navigator.onLine;
+}
+
+
+function AddReview() {
+    if ($('#longdescription').val() === "") {
+        alert('Заповніть всі поля');
+        return false;
+    }
+
+    var now = new Date();
+
+    if (isOnline()) {
+        $("#list").append("<li>\n" +
+            "                <article>\n" +
+            "                    <header>\n" +
+            "                        <address class = 'user_adress'>\n" +
+            "\n" +
+            "                        </address>\n" +
+            "                        <time class =\"review_time\"></time>\n" +
+            "                    </header>\n" +
+            "                    <div class=\"comcont\">\n" +
+            "                        <p class= 'review'> </p>\n" +
+            "                    </div>\n" +
+            "                </article>\n" +
+            "            </li>");
+        $('#list li:last .user_adress').append(
+            "Try")
+        $('#list li:last .review').append($('#longdescription').val());
+        $('#list li:last .review_time').append(now.toDateString());
+    }
+    else {
+        if (useLocalStorage) {
+            i++;
+            var list = [];
+            list.push({"message": $('#longdescription').val(), "time": now.toDateString()});
+            localStorage.setItem(i, JSON.stringify(list));
+        }
+        else {
+            var transaction = db.transaction(["reviews"], "readwrite");
+            var store = transaction.objectStore("reviews");
+            var review = {
+                message: $('#longdescription').val(),
+                time: now.toDateString()
+            };
+            store.add(review);
+        }
+    }
+    $('#longdescription').val('');
+}
+
+function ReadOflineReview() {
+    if (useLocalStorage) {
+        len = localStorage.length + 1;
+        for (var k = 1; k < len; k++) {
+            $("#list").append("<li>\n" +
+                "                <article>\n" +
+                "                    <header>\n" +
+                "                        <address class = 'user_adress'>\n" +
+                "\n" +
+                "                        </address>\n" +
+                "                        <time class =\"review_time\"></time>\n" +
+                "                    </header>\n" +
+                "                    <div class=\"comcont\">\n" +
+                "                        <p class= 'review'> </p>\n" +
+                "                    </div>\n" +
+                "                </article>\n" +
+                "            </li>");
+
+            review = JSON.parse(localStorage.getItem(k));
+
+            $('#list li:last .user_adress').append(
+                "Try")
+            $('#list li:last .review').append(review[0].message);
+            $('#list li:last .review_time').append(review[0].time);
+        }
+    }
+    else {
+        var transaction = db.transaction(["reviews"], "readonly");
+        var store = transaction.objectStore("reviews");
+
+        store.openCursor().onsuccess = function (e) {
+            var cursor = e.target.result;
+            if (cursor) {
+                cursor.continue();
+                $("#list").append("<li>\n" +
+                    "                <article>\n" +
+                    "                    <header>\n" +
+                    "                        <address class = 'user_adress'>\n" +
+                    "\n" +
+                    "                        </address>\n" +
+                    "                        <time class =\"review_time\"></time>\n" +
+                    "                    </header>\n" +
+                    "                    <div class=\"comcont\">\n" +
+                    "                        <p class= 'review'> </p>\n" +
+                    "                    </div>\n" +
+                    "                </article>\n" +
+                    "            </li>");
+
+                $('#list li:last .user_adress').append(
+                    "Try");
+                $('#list li:last .review').append(cursor.value.message);
+                $('#list li:last .review_time').append(cursor.value.time);
+            }
+        }
+    }
+}
+</script>
+<script src="js/indexeddb.js"></script>
+<script src='js/jquery-3.2.1.js'></script>
+<script src='js/bootstrap.min.js'></script>
+<script src='js/magnific-popup.js'></script>
+
+    </body>
+  </html>
